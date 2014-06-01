@@ -1048,6 +1048,7 @@ Init_openssl()
      */
     /* CRYPTO_malloc_init(); */
     /* ENGINE_load_builtin_engines(); */
+    OPENSSL_config(NULL); /* Makes Ruby respect system OpenSSL config */
     OpenSSL_add_ssl_algorithms();
     OpenSSL_add_all_algorithms();
     ERR_load_crypto_strings();
