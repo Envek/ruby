@@ -95,6 +95,10 @@ ossl_pkey_new(EVP_PKEY *pkey)
     case EVP_PKEY_EC:
 	return ossl_ec_new(pkey);
 #endif
+#if !defined(OPENSSL_NO_EC) && !defined(OPENSSL_NO_GOST) && (OPENSSL_VERSION_NUMBER >= 0x01000000fL)
+    case NID_id_GostR3410_2001:
+    return ossl_gost2001_new(pkey);
+#endif
     default:
 	ossl_raise(ePKeyError, "unsupported key type");
     }
@@ -429,11 +433,12 @@ Init_ossl_pkey()
     id_private_q = rb_intern("private?");
 
     /*
-     * INIT rsa, dsa, dh, ec
+     * INIT rsa, dsa, dh, ec, gost
      */
     Init_ossl_rsa();
     Init_ossl_dsa();
     Init_ossl_dh();
     Init_ossl_ec();
+    Init_ossl_gost2001();
 }
 

@@ -99,6 +99,14 @@ extern VALUE eEC_POINT;
 VALUE ossl_ec_new(EVP_PKEY *);
 void Init_ossl_ec(void);
 
+/*
+ * GOST R 34.10-2001
+ */
+extern VALUE cGost2001;
+extern VALUE eGost2001Error;
+VALUE ossl_gost2001_new(EVP_PKEY *);
+void Init_ossl_gost2001(void);
+
 
 #define OSSL_PKEY_BN(keytype, name)					\
 /*									\
