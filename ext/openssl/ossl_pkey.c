@@ -92,6 +92,7 @@ ossl_pkey_new(EVP_PKEY *pkey)
 	return ossl_dh_new(pkey);
 #endif
 #if !defined(OPENSSL_NO_EC) && (OPENSSL_VERSION_NUMBER >= 0x0090802fL)
+    case NID_id_GostR3410_2001:
     case EVP_PKEY_EC:
 	return ossl_ec_new(pkey);
 #endif

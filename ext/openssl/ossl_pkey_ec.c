@@ -23,9 +23,6 @@ typedef struct {
 
 #define GetPKeyEC(obj, pkey) do { \
     GetPKey((obj), (pkey)); \
-    if (EVP_PKEY_type((pkey)->type) != EVP_PKEY_EC) { \
-	ossl_raise(rb_eRuntimeError, "THIS IS NOT A EC PKEY!"); \
-    } \
 } while (0)
 
 #define SafeGet_ec_group(obj, group) do { \
@@ -133,9 +130,6 @@ VALUE ossl_ec_new(EVP_PKEY *pkey)
     if (!pkey) {
 	obj = ec_instance(cEC, EC_KEY_new());
     } else {
-	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_EC) {
-	    ossl_raise(rb_eTypeError, "Not a EC key!");
-	}
 	WrapPKey(cEC, obj, pkey);
     }
     if (obj == Qfalse) {
